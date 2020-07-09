@@ -7,6 +7,12 @@ pipeline {
                    sh './hello.sh'
                   }
               }
+        stage('test stage') {
+
+            steps {
+                   sh 'touch newfile.sh'
+                  }
+              }
              }
            }
 
