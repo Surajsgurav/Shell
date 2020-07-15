@@ -1,18 +1,35 @@
 pipeline {
-    agent any
+    agent none
     stages {
-      stage('run shell script') {
-
-            steps {
-                   sh './hello.sh'
-                  }
-              }
-        stage('test stage') {
-
-            steps {
-                   sh 'touch newfile.sh'
-                  }
-              }
-             }
-           }
-
+        stage('Run Tests') {
+            parallel {
+                stage('run shell script') {
+                    agent {
+                        label "windows"
+                    }
+                    steps {
+                        sh './hello.sh'
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+                stage('test stage') {
+                    agent {
+                        label "linux"
+                    }
+                    steps {
+                        sh 'touch newfile.sh'
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
