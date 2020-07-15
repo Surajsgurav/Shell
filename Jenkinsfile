@@ -10,11 +10,6 @@ pipeline {
                     steps {
                         sh './hello.sh'
                     }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
-                    }
                 }
                 stage('test stage') {
                     agent {
@@ -23,11 +18,7 @@ pipeline {
                     steps {
                         sh 'touch newfile.sh'
                     }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
-                    }
+                   
                 }
             }
         }
