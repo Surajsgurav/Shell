@@ -5,7 +5,7 @@ pipeline {
             parallel {
                 stage('run shell script') {
                     agent {
-                        label "windows"
+                        label "linux"
                     }
                     steps {
                         sh './hello.sh'
